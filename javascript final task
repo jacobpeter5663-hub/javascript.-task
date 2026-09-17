@@ -1,416 +1,1456 @@
-// // What is a variable in JavaScript?
-// // What are the three keywords used to create variables?
-// // Write the syntax to create a variable using var.
-// // Write the syntax to create a variable using let.
-// // Write the syntax to create a variable using const.
-// // What is declaration?
-// // What is initialization?
-// // What is reassignment?
-// // What is redeclaration?
-// // Which keyword allows redeclaration?
-// // Which keyword allows reassignment?
-// // Which keyword requires initialization when declared?
-// // Identify the declaration and initialization:
-// // let age = 25;
-// // What is the value of a?
-// // var a = 100;
-// // console.log(a);
-// // Change the value of this variable to 200:
-// // let number = 100;
-// // var
-// // What will be the output?
-// // var a = 10;
-// // console.log(a);
-// // What will be the output?
-// // var a = 10;
-// // a = 20;
-// // console.log(a);
-// // What will be the output?
-// // var a = 10;
-// // var a = 30;
-// // console.log(a);
-// // Write a var variable named name with the value "John".
-// // Create a var variable named price with the value 500.
-// // Reassign price from 500 to 1000.
-// // What will be the output?
-// // var x = 50;
-// // x = 100;
-// // console.log(x);
-// // Can a var variable be reassigned?
-// // Can a var variable be redeclared?
-// // Write an example of var redeclaration.
-// // let
-// // Create a let variable named age with the value 25.
-// // What will be the output?
-// // let age = 20;
-// // age = 30;
-// // console.log(age);
-// // Can a let variable be reassigned?
-// // Can a let variable be redeclared?
-// // Find the error:
-// // let name = "John";
-// // let name = "David";
-// // Create a let variable called city and assign "Chennai".
-// // Change the value of city to "Salem".
-// // What will be the output?
-// // let x = 10;
-// // x = 50;
-// // console.log(x);
-// // Write a let variable called salary with the value 25000.
-// // Reassign salary to 30000.
-// // const
-// // Create a const variable called pi with the value 3.14.
-// // Can a const variable be reassigned?
-// // Can a const variable be redeclared?
-// // What is wrong with this code?
-// // const age;
-// // age = 25;
-// // What happens here?
-// // const price = 500;
-// // price = 1000;
-// // Create a const variable called country with the value "India".
-// // What will be the output?
-// // const x = 100;
-// // console.log(x);
-// // Which keyword should you use if the value should not be reassigned?
-// // What is the difference between let and const?
-// // What is the difference between var and const?
-// // Printing & Console
-// // Write JavaScript code to print Hello World using console.log().
-// // Write JavaScript code to print the number 500 using console.log().
-// // What is the purpose of console.warn()?
-// // What is the purpose of console.error()?
-// // What is the purpose of each?
-// // alert()
-// // prompt()
-// // confirm()
-// // document.writeln()
-// // console.log()
+let employees=[];
 
+let displayList=[];
 
-// Answer:
 
+// API CALL
 
-// 1. What is a variable in JavaScript?
+function fetchEmployees(){
 
-//  A variable is used to store data or a value.
 
-// 2. What are the three keywords used to create variables?
+fetch("https://dummyjson.com/users")
 
-//  var, let, and const.
+.then(response=>response.json())
 
-// 3. Write the syntax to create a variable using var.?
+.then(data=>{
 
-// var variableName = value;
 
-// 4. Write the syntax to create a variable using let.
+employees=data.users.map(user=>({
 
+id:user.id,
 
-// let variableName = value;
+name:user.firstName+" "+user.lastName,
 
-// 5. Write the syntax to create a variable using const.
+age:user.age,
 
-// const variableName = value;
+email:user.email,
 
-// 6. What is declaration?
+phone:user.phone,
 
-//  Declaration means creating a variable.
+department:user.company.department,
 
-// Example:
+image:user.image,
 
-// let age;
+salary:Math.floor(Math.random()*50000)+30000
 
-// 7. What is initialization?
 
-//  Initialization means assigning a value to a variable for the first time.
+}));
 
-// Example:
 
-// let age = 25;
+displayList=[...employees];
 
-// 8. What is reassignment?
 
-//  Reassignment means changing the existing value of a variable.
+displayEmployees(displayList);
 
-// Example:
 
-// let age = 25;
-// age = 30;
+document.getElementById("message").innerHTML=
+"Employee data loaded successfully";
 
-// 9. What is redeclaration?
 
-// Redeclaration means declaring the same variable again.
+})
 
-// Example:
 
-// var age = 25;
-// var age = 30;
+.catch(error=>{
 
-// 10. Which keyword allows redeclaration?
+document.getElementById("message").innerHTML=
+"Unable to load employee data";
 
-//     1) var
+})
 
-// 11. Which keyword allows reassignment?
-  
-//     var and let.
 
-// 12. Which keyword requires initialization when declared?
+.finally(()=>{
 
-//     const.
+console.log("API Completed");
 
-// 13. Identify the declaration and initialization:
+});
 
-// let age = 25;
-// Declaration → let age
-// Initialization → 25
 
-// 14. What is the value of a?
+}
 
-// var a = 100;
-// console.log(a);
 
-// output: 100
 
-// 15. Change the value of this variable to 200:
+fetchEmployees();
 
-// let number = 100;
 
 
-// let number = 100;
-// number = 200;
-// var
 
-// 16. What will be the output?
+// DISPLAY EMPLOYEE
 
-// var a = 10;
-// console.log(a);
 
-// output:10
+function displayEmployees(list){
 
-// 17. What will be the output?
 
-// var a = 10;
-// a = 20;
-// console.log(a);
+let container=
+document.getElementById("employeeContainer");
 
-// output:20
 
+container.innerHTML="";
 
 
-// 18. What will be the output?
+list.forEach(emp=>{
 
-// var a = 10;
-// var a = 30;
-// console.log(a);
 
-// output:30
+let card=document.createElement("div");
 
+card.className="card";
 
 
-// 19. Write a var variable named name with the value "John".
+card.innerHTML=`
 
+<img src="${emp.image}">
 
-// var name = "John";
+<h3>${emp.name}</h3>
 
-// 20. Create a var variable named price with the value 500.
+<p>Age: ${emp.age}</p>
 
-// var price = 500;
+<p>Email: ${emp.email}</p>
 
-// 21. Reassign price from 500 to 1000.
+<p>Department: ${emp.department}</p>
 
-// var price = 500;
-// price = 1000;
+<p>Phone: ${emp.phone}</p>
 
-// 22. What will be the output?
+<p>Salary: ₹${emp.salary}</p>
 
-// var x = 50;
-// x = 100;
-// console.log(x);
 
-// ouput:
-// 100
+<button onclick="deleteEmployee(${emp.id})">
+Delete
+</button>
 
+`;
 
-// 23. Can a var variable be reassigned?
+container.appendChild(card);
 
-// Yes.
 
-// 24. Can a var variable be redeclared?
-//  Yes.
+});
 
-// 25. Write an example of var redeclaration.
 
+updateEmployeeCount(list);
 
+calculateSalary(list);
 
-// var x = 10;
-// var x = 20;
-// let
 
-// 26. Create a let variable named age with the value 25.
+}
 
 
 
-// let age = 25;
 
-// 27. What will be the output?
+// COUNT
 
-// let age = 20;
-// age = 30;
-// console.log(age);
 
-// ouput:
+function updateEmployeeCount(list){
 
-// 30
+document.getElementById("count").innerHTML=
+"Employee Count: "+list.length;
 
-// 28. Can a let variable be reassigned?
-//  Yes.
+}
 
-// 29. Can a let variable be redeclared?
-//  No, not in the same scope.
 
-// 30. Find the error:
 
-// let name = "John";
-// let name = "David";
+// SEARCH
 
-//  SyntaxError because name is already declared.
 
-// 31. Create a let variable called city and assign "Chennai".
+function searchEmployees(){
 
 
-// let city = "Chennai";
+let value=
+document.getElementById("searchInput").value
+.toLowerCase();
 
-// 32. Change the value of city to "Salem".
 
+let result=employees.filter(emp=>
 
-// city = "Salem";
+emp.name.toLowerCase()
+.includes(value)
 
-// 33. What will be the output?
+);
 
-// let x = 10;
-// x = 50;
-// console.log(x);
 
-// output:
+displayEmployees(result);
 
-// 50
 
-// 34. Write a let variable called salary with the value 25000.
+}
 
 
 
-// let salary = 25000;
 
-// 35. Reassign salary to 30000.
+// DEPARTMENT FILTER
 
 
-// salary = 30000;
-// const
+function filterDepartment(dep){
 
-// 36. Create a const variable called pi with the value 3.14.
 
-// :
+let result;
 
-// const pi = 3.14;
 
-// 37. Can a const variable be reassigned?
-//  No.
+if(dep==="All"){
 
-// 38. Can a const variable be redeclared?
-//  No.
+result=employees;
 
-// 39. What is wrong with this code?
+}
 
-// const age;
-// age = 25;
+else{
 
-// Answer: const must be initialized when it is declared.
 
-// Correct:
+result=employees.filter(emp=>
 
-// const age = 25;
+emp.department.includes(dep)
 
-// 40. What happens here?
+);
 
-// const price = 500;
-// price = 1000;
+}
 
-// It gives a TypeError because a const variable cannot be reassigned.
 
-// 41. Create a const variable called country with the value "India".
+displayEmployees(result);
 
 
-// const country = "India";
+}
 
-// 42. What will be the output?
 
-// const x = 100;
-// console.log(x);
 
-// output:
 
-// 100
+// ADD EMPLOYEE
 
-// 43. Which keyword should you use if the value should not be reassigned?
-//  const.
 
-// 44. What is the difference between let and const?
-//  let can be reassigned, but const cannot be reassigned.
+function addEmployee(){
 
-// 45. What is the difference between var and const?
-// var can be reassigned and redeclared. const cannot be reassigned or redeclared.
 
-// Printing & Console
+let name=
+document.getElementById("name").value;
 
-// 46. Write JavaScript code to print Hello World using console.log().
 
+let age=
+Number(document.getElementById("age").value);
 
 
-// console.log("Hello World");
+let email=
+document.getElementById("email").value;
 
-// 47. Write JavaScript code to print the number 500 using console.log().
 
+let department=
+document.getElementById("department").value;
 
-// console.log(500);
 
-// 48. What is the purpose of console.warn()?
-//  console.warn() is used to display a warning message in the console.
 
-// Example:
+if(!validateEmployee(name,age,email,department))
+return;
 
-// console.warn("Warning!");
 
-// 49. What is the purpose of console.error()?
-// Answer: console.error() is used to display an error message in the console.
 
-// Example:
+let newEmployee={
 
-// console.error("Error!");
 
-// 50. What is the purpose of each?
+id:Date.now(),
 
-// alert()
+name:name,
 
-//  Displays a popup message to the user.
+age:age,
 
-// alert("Hello");
-// prompt()
+email:email,
 
-//  Asks the user to enter a value.
+department:department,
 
-// prompt("Enter your name");
-// confirm()
+phone:"N/A",
 
-//  Asks the user to confirm an action. It returns true or false.
+image:"https://dummyjson.com/icon/abc/128",
 
-// confirm("Are you sure?");
-// document.writeln()
+salary:50000
 
-//  Writes content directly to the webpage.
 
-// document.writeln("Hello World");
-// console.log()
+};
 
-//  Displays output in the browser console.
 
-// console.log("Hello World");
+
+employees.push(newEmployee);
+
+
+
+displayEmployees(employees);
+
+
+clearForm();
+
+
+}
+
+
+
+
+// VALIDATION
+
+
+function validateEmployee(name,age,email,department){
+
+
+let error=document.getElementById("error");
+
+
+if(name===""){
+
+error.innerHTML=
+"❌ Please enter employee name";
+
+return false;
+
+}
+
+
+
+else if(age<=18){
+
+error.innerHTML=
+"❌ Age must be above 18";
+
+return false;
+
+}
+
+
+else if(email===""){
+
+error.innerHTML=
+"❌ Enter email";
+
+return false;
+
+}
+
+
+else if(department===""){
+
+error.innerHTML=
+"❌ Select department";
+
+return false;
+
+}
+
+
+error.innerHTML="";
+
+return true;
+
+
+}
+
+
+
+
+
+// DELETE
+
+
+function deleteEmployee(id){
+
+
+employees=
+employees.filter(emp=>emp.id!==id);
+
+
+displayEmployees(employees);
+
+
+}
+
+
+
+
+// SALARY
+
+
+function calculateSalary(list){
+
+
+let total=list.reduce((sum,emp)=>
+
+sum+emp.salary,0);
+
+
+
+let average=
+Math.floor(total/list.length);
+
+
+
+let highest=
+list.reduce((a,b)=>
+
+a.salary>b.salary?a:b);
+
+
+
+document.getElementById("salaryDetails").innerHTML=
+
+`
+
+<h3>Total Salary: ₹${total}</h3>
+
+<h3>Average Salary: ₹${average}</h3>
+
+<h3>Highest Paid Employee:
+${highest.name}
+₹${highest.salary}</h3>
+
+`;
+
+}
+
+
+
+// SORT
+
+
+function sortEmployees(type){
+
+
+if(type==="name"){
+
+
+employees.sort((a,b)=>
+
+a.name.localeCompare(b.name));
+
+}
+
+
+else if(type==="age"){
+
+
+employees.sort((a,b)=>
+
+a.age-b.age);
+
+}
+
+
+else if(type==="salary"){
+
+
+employees.sort((a,b)=>
+
+b.salary-a.salary);
+
+}
+
+
+
+displayEmployees(employees);
+
+
+}
+
+
+
+
+// CLEAR FORM
+
+
+function clearForm(){
+
+
+document.getElementById("name").value="";
+
+document.getElementById("age").value="";
+
+document.getElementById("email").value="";
+
+document.getElementById("department").value="";
+
+
+}
+
+
+
+// DATE TIME
+
+
+function showDate(){
+
+
+let date=new Date();
+
+
+document.getElementById("dateTime").innerHTML=
+
+"Today: "+
+date.toLocaleDateString()+
+" Time: "+
+date.toLocaleTimeString();
+
+
+}
+
+
+showDate();
+
+
+setInterval(showDate,1000);let employees=[];
+
+let displayList=[];
+
+
+// API CALL
+
+function fetchEmployees(){
+
+
+fetch("https://dummyjson.com/users")
+
+.then(response=>response.json())
+
+.then(data=>{
+
+
+employees=data.users.map(user=>({
+
+id:user.id,
+
+name:user.firstName+" "+user.lastName,
+
+age:user.age,
+
+email:user.email,
+
+phone:user.phone,
+
+department:user.company.department,
+
+image:user.image,
+
+salary:Math.floor(Math.random()*50000)+30000
+
+
+}));
+
+
+displayList=[...employees];
+
+
+displayEmployees(displayList);
+
+
+document.getElementById("message").innerHTML=
+"Employee data loaded successfully";
+
+
+})
+
+
+.catch(error=>{
+
+document.getElementById("message").innerHTML=
+"Unable to load employee data";
+
+})
+
+
+.finally(()=>{
+
+console.log("API Completed");
+
+});
+
+
+}
+
+
+
+fetchEmployees();
+
+
+
+
+// DISPLAY EMPLOYEE
+
+
+function displayEmployees(list){
+
+
+let container=
+document.getElementById("employeeContainer");
+
+
+container.innerHTML="";
+
+
+list.forEach(emp=>{
+
+
+let card=document.createElement("div");
+
+card.className="card";
+
+
+card.innerHTML=`
+
+<img src="${emp.image}">
+
+<h3>${emp.name}</h3>
+
+<p>Age: ${emp.age}</p>
+
+<p>Email: ${emp.email}</p>
+
+<p>Department: ${emp.department}</p>
+
+<p>Phone: ${emp.phone}</p>
+
+<p>Salary: ₹${emp.salary}</p>
+
+
+<button onclick="deleteEmployee(${emp.id})">
+Delete
+</button>
+
+`;
+
+container.appendChild(card);
+
+
+});
+
+
+updateEmployeeCount(list);
+
+calculateSalary(list);
+
+
+}
+
+
+
+
+// COUNT
+
+
+function updateEmployeeCount(list){
+
+document.getElementById("count").innerHTML=
+"Employee Count: "+list.length;
+
+}
+
+
+
+// SEARCH
+
+
+function searchEmployees(){
+
+
+let value=
+document.getElementById("searchInput").value
+.toLowerCase();
+
+
+let result=employees.filter(emp=>
+
+emp.name.toLowerCase()
+.includes(value)
+
+);
+
+
+displayEmployees(result);
+
+
+}
+
+
+
+
+// DEPARTMENT FILTER
+
+
+function filterDepartment(dep){
+
+
+let result;
+
+
+if(dep==="All"){
+
+result=employees;
+
+}
+
+else{
+
+
+result=employees.filter(emp=>
+
+emp.department.includes(dep)
+
+);
+
+}
+
+
+displayEmployees(result);
+
+
+}
+
+
+
+
+// ADD EMPLOYEE
+
+
+function addEmployee(){
+
+
+let name=
+document.getElementById("name").value;
+
+
+let age=
+Number(document.getElementById("age").value);
+
+
+let email=
+document.getElementById("email").value;
+
+
+let department=
+document.getElementById("department").value;
+
+
+
+if(!validateEmployee(name,age,email,department))
+return;
+
+
+
+let newEmployee={
+
+
+id:Date.now(),
+
+name:name,
+
+age:age,
+
+email:email,
+
+department:department,
+
+phone:"N/A",
+
+image:"https://dummyjson.com/icon/abc/128",
+
+salary:50000
+
+
+};
+
+
+
+employees.push(newEmployee);
+
+
+
+displayEmployees(employees);
+
+
+clearForm();
+
+
+}
+
+
+
+
+// VALIDATION
+
+
+function validateEmployee(name,age,email,department){
+
+
+let error=document.getElementById("error");
+
+
+if(name===""){
+
+error.innerHTML=
+"❌ Please enter employee name";
+
+return false;
+
+}
+
+
+
+else if(age<=18){
+
+error.innerHTML=
+"❌ Age must be above 18";
+
+return false;
+
+}
+
+
+else if(email===""){
+
+error.innerHTML=
+"❌ Enter email";
+
+return false;
+
+}
+
+
+else if(department===""){
+
+error.innerHTML=
+"❌ Select department";
+
+return false;
+
+}
+
+
+error.innerHTML="";
+
+return true;
+
+
+}
+
+
+
+
+
+// DELETE
+
+
+function deleteEmployee(id){
+
+
+employees=
+employees.filter(emp=>emp.id!==id);
+
+
+displayEmployees(employees);
+
+
+}
+
+
+
+
+// SALARY
+
+
+function calculateSalary(list){
+
+
+let total=list.reduce((sum,emp)=>
+
+sum+emp.salary,0);
+
+
+
+let average=
+Math.floor(total/list.length);
+
+
+
+let highest=
+list.reduce((a,b)=>
+
+a.salary>b.salary?a:b);
+
+
+
+document.getElementById("salaryDetails").innerHTML=
+
+`
+
+<h3>Total Salary: ₹${total}</h3>
+
+<h3>Average Salary: ₹${average}</h3>
+
+<h3>Highest Paid Employee:
+${highest.name}
+₹${highest.salary}</h3>
+
+`;
+
+}
+
+
+
+// SORT
+
+
+function sortEmployees(type){
+
+
+if(type==="name"){
+
+
+employees.sort((a,b)=>
+
+a.name.localeCompare(b.name));
+
+}
+
+
+else if(type==="age"){
+
+
+employees.sort((a,b)=>
+
+a.age-b.age);
+
+}
+
+
+else if(type==="salary"){
+
+
+employees.sort((a,b)=>
+
+b.salary-a.salary);
+
+}
+
+
+
+displayEmployees(employees);
+
+
+}
+
+
+
+
+// CLEAR FORM
+
+
+function clearForm(){
+
+
+document.getElementById("name").value="";
+
+document.getElementById("age").value="";
+
+document.getElementById("email").value="";
+
+document.getElementById("department").value="";
+
+
+}
+
+
+
+// DATE TIME
+
+
+function showDate(){
+
+
+let date=new Date();
+
+
+document.getElementById("dateTime").innerHTML=
+
+"Today: "+
+date.toLocaleDateString()+
+" Time: "+
+date.toLocaleTimeString();
+
+
+}
+
+
+showDate();
+
+
+setInterval(showDate,1000);let employees=[];
+
+let displayList=[];
+
+
+// API CALL
+
+function fetchEmployees(){
+
+
+fetch("https://dummyjson.com/users")
+
+.then(response=>response.json())
+
+.then(data=>{
+
+
+employees=data.users.map(user=>({
+
+id:user.id,
+
+name:user.firstName+" "+user.lastName,
+
+age:user.age,
+
+email:user.email,
+
+phone:user.phone,
+
+department:user.company.department,
+
+image:user.image,
+
+salary:Math.floor(Math.random()*50000)+30000
+
+
+}));
+
+
+displayList=[...employees];
+
+
+displayEmployees(displayList);
+
+
+document.getElementById("message").innerHTML=
+"Employee data loaded successfully";
+
+
+})
+
+
+.catch(error=>{
+
+document.getElementById("message").innerHTML=
+"Unable to load employee data";
+
+})
+
+
+.finally(()=>{
+
+console.log("API Completed");
+
+});
+
+
+}
+
+
+
+fetchEmployees();
+
+
+
+
+// DISPLAY EMPLOYEE
+
+
+function displayEmployees(list){
+
+
+let container=
+document.getElementById("employeeContainer");
+
+
+container.innerHTML="";
+
+
+list.forEach(emp=>{
+
+
+let card=document.createElement("div");
+
+card.className="card";
+
+
+card.innerHTML=`
+
+<img src="${emp.image}">
+
+<h3>${emp.name}</h3>
+
+<p>Age: ${emp.age}</p>
+
+<p>Email: ${emp.email}</p>
+
+<p>Department: ${emp.department}</p>
+
+<p>Phone: ${emp.phone}</p>
+
+<p>Salary: ₹${emp.salary}</p>
+
+
+<button onclick="deleteEmployee(${emp.id})">
+Delete
+</button>
+
+`;
+
+container.appendChild(card);
+
+
+});
+
+
+updateEmployeeCount(list);
+
+calculateSalary(list);
+
+
+}
+
+
+
+
+// COUNT
+
+
+function updateEmployeeCount(list){
+
+document.getElementById("count").innerHTML=
+"Employee Count: "+list.length;
+
+}
+
+
+
+// SEARCH
+
+
+function searchEmployees(){
+
+
+let value=
+document.getElementById("searchInput").value
+.toLowerCase();
+
+
+let result=employees.filter(emp=>
+
+emp.name.toLowerCase()
+.includes(value)
+
+);
+
+
+displayEmployees(result);
+
+
+}
+
+
+
+
+// DEPARTMENT FILTER
+
+
+function filterDepartment(dep){
+
+
+let result;
+
+
+if(dep==="All"){
+
+result=employees;
+
+}
+
+else{
+
+
+result=employees.filter(emp=>
+
+emp.department.includes(dep)
+
+);
+
+}
+
+
+displayEmployees(result);
+
+
+}
+
+
+
+
+// ADD EMPLOYEE
+
+
+function addEmployee(){
+
+
+let name=
+document.getElementById("name").value;
+
+
+let age=
+Number(document.getElementById("age").value);
+
+
+let email=
+document.getElementById("email").value;
+
+
+let department=
+document.getElementById("department").value;
+
+
+
+if(!validateEmployee(name,age,email,department))
+return;
+
+
+
+let newEmployee={
+
+
+id:Date.now(),
+
+name:name,
+
+age:age,
+
+email:email,
+
+department:department,
+
+phone:"N/A",
+
+image:"https://dummyjson.com/icon/abc/128",
+
+salary:50000
+
+
+};
+
+
+
+employees.push(newEmployee);
+
+
+
+displayEmployees(employees);
+
+
+clearForm();
+
+
+}
+
+
+
+
+// VALIDATION
+
+
+function validateEmployee(name,age,email,department){
+
+
+let error=document.getElementById("error");
+
+
+if(name===""){
+
+error.innerHTML=
+"❌ Please enter employee name";
+
+return false;
+
+}
+
+
+
+else if(age<=18){
+
+error.innerHTML=
+"❌ Age must be above 18";
+
+return false;
+
+}
+
+
+else if(email===""){
+
+error.innerHTML=
+"❌ Enter email";
+
+return false;
+
+}
+
+
+else if(department===""){
+
+error.innerHTML=
+"❌ Select department";
+
+return false;
+
+}
+
+
+error.innerHTML="";
+
+return true;
+
+
+}
+
+
+
+
+
+// DELETE
+
+
+function deleteEmployee(id){
+
+
+employees=
+employees.filter(emp=>emp.id!==id);
+
+
+displayEmployees(employees);
+
+
+}
+
+
+
+
+// SALARY
+
+
+function calculateSalary(list){
+
+
+let total=list.reduce((sum,emp)=>
+
+sum+emp.salary,0);
+
+
+
+let average=
+Math.floor(total/list.length);
+
+
+
+let highest=
+list.reduce((a,b)=>
+
+a.salary>b.salary?a:b);
+
+
+
+document.getElementById("salaryDetails").innerHTML=
+
+`
+
+<h3>Total Salary: ₹${total}</h3>
+
+<h3>Average Salary: ₹${average}</h3>
+
+<h3>Highest Paid Employee:
+${highest.name}
+₹${highest.salary}</h3>
+
+`;
+
+}
+
+
+
+// SORT
+
+
+function sortEmployees(type){
+
+
+if(type==="name"){
+
+
+employees.sort((a,b)=>
+
+a.name.localeCompare(b.name));
+
+}
+
+
+else if(type==="age"){
+
+
+employees.sort((a,b)=>
+
+a.age-b.age);
+
+}
+
+
+else if(type==="salary"){
+
+
+employees.sort((a,b)=>
+
+b.salary-a.salary);
+
+}
+
+
+
+displayEmployees(employees);
+
+
+}
+
+
+
+
+// CLEAR FORM
+
+
+function clearForm(){
+
+
+document.getElementById("name").value="";
+
+document.getElementById("age").value="";
+
+document.getElementById("email").value="";
+
+document.getElementById("department").value="";
+
+
+}
+
+
+
+// DATE TIME
+
+
+function showDate(){
+
+
+let date=new Date();
+
+
+document.getElementById("dateTime").innerHTML=
+
+"Today: "+
+date.toLocaleDateString()+
+" Time: "+
+date.toLocaleTimeString();
+
+
+}
+
+
+showDate();
+
+
+setInterval(showDate,1000);
